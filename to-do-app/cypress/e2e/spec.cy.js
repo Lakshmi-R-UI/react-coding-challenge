@@ -20,7 +20,9 @@ describe('App Loads', () => {
     cy.get('input[id="add-sub-task-Learning"]').type('HTML')
     cy.get('button[id="add-sub-task-btn-Learning"]').click();
 
-    cy.get('input[id="Learning"]').click();
+    cy.get('button[id="delete-Learning"]').click();
+
+    cy.get('input[id="Shopping"]').click();
 
     cy.get('input[id="search-bar"]').type('Working')
   })

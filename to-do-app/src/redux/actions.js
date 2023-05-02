@@ -1,4 +1,4 @@
-import { ADD_SUBTASK, ADD_TASK, TOGGLE_TASK, SET_SEARCH_QUERY, TOGGLE_SUB_TASK} from "./actionType";
+import { ADD_SUBTASK, ADD_TASK, TOGGLE_TASK, SET_SEARCH_QUERY, TOGGLE_SUB_TASK, DELETE_TASK} from "./actionType";
 
 export const addTask = (title) => ({
   type: ADD_TASK,
@@ -36,3 +36,10 @@ export const toggleSubtask = (taskid, id)=> ({
     id,
   },
 });
+
+export const deleteTask = (id) => ({
+  type: DELETE_TASK,
+  payload: {
+    id
+  }
+})

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { toggleTask, addSubtask, toggleSubtask } from '../redux/actions';
+import { toggleTask, addSubtask, toggleSubtask, deleteTask } from '../redux/actions';
 import { useDispatch } from 'react-redux';
 import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add'
+import { Delete } from '@mui/icons-material';
 
 const Todo = ({ todo }) => {
   const dispatch = useDispatch()
@@ -30,6 +31,10 @@ const Todo = ({ todo }) => {
     dispatch(toggleSubtask(todo.id, id))
   }
 
+  const handleDelete = () => {
+    dispatch(deleteTask(todo.id))
+  }
+
   return (
     <li>
       <div className="list-container">
@@ -39,6 +44,7 @@ const Todo = ({ todo }) => {
               id={todo.title}
             />
       <span style={{ textDecoration: todo.done ? 'line-through' : 'none' }}>{todo.title}</span>
+      <Button  onClick={handleDelete}  startIcon={<Delete />} size="small" id={`delete-${todo.title}`}>Delete</Button>
       <ul>
         {todo.subtasks.map(subtask => (
            <li key={subtask.id}>

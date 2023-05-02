@@ -1,4 +1,4 @@
-import { ADD_SUBTASK, ADD_TASK, TOGGLE_TASK, SET_SEARCH_QUERY, TOGGLE_SUB_TASK } from "./actionType";
+import { ADD_SUBTASK, ADD_TASK, TOGGLE_TASK, SET_SEARCH_QUERY, TOGGLE_SUB_TASK, DELETE_TASK } from "./actionType";
 
 const initialState = {
     tasks: [],
@@ -63,6 +63,15 @@ const initialState = {
           ...state,
           tasks,
         };
+      }
+      case DELETE_TASK: {
+        const tasks = state.tasks.filter((task) =>
+        task.id !== action.payload.id
+      );
+      return {
+        ...state,
+        tasks,
+      };
       }
       default:
         return state;
