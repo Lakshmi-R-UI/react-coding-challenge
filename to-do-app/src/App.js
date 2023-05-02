@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import TodoList from './page/ToDoList'
 import Header from './core/Header'
