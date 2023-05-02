@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -6,12 +6,13 @@ import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
+import Checkbox from '@mui/material/Checkbox'
 
 
 const Task = (props) => {
     const [subtasks, setSubtasks] = useState([]);
     const [newSubtask, setNewSubtask] = useState('');
-  
+
     const handleSubtaskChange = (event) => {
       setNewSubtask(event.target.value);
     };
@@ -32,16 +33,24 @@ const Task = (props) => {
       setSubtasks(updatedSubtasks);
     };
   
+    const handleTaskDone = () => {
+        props.onDone(props.id)
+    }
+
     return (
       <div className="list-container">
-        <span>{props.description}</span>
+        <Checkbox
+              checked={props.isDone}
+              onChange={handleTaskDone}
+            />
+        <span style={{ textDecoration: props.isDone ? 'line-through' : 'none' }}>{props.description}</span>
         <IconButton aria-label="delete" size="small" onClick={handleDelete}>
         <DeleteIcon fontSize="inherit" />
       </IconButton>
         <ul>
           {subtasks.map((subtask, index) => (
             <li key={index}>
-              {subtask}
+        <span style={{ textDecoration: props.isDone ? 'line-through' : 'none' }}>{subtask}</span>
                 <IconButton aria-label="delete" size="small" onClick={() => handleSubtaskDelete(index)}>
                 <DeleteIcon fontSize="inherit" />
                 </IconButton>

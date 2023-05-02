@@ -7,7 +7,6 @@ import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 
 
-
 const TodoList = () => {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
@@ -17,8 +16,8 @@ const TodoList = () => {
     };
   
     const handleAddTask = () => {
-      if (newTask) {
-        setTasks([...tasks, newTask]);
+      if (Object.keys(newTask).length>0) {
+        setTasks([...tasks, { description: newTask, isDone: false }]);
         setNewTask('');
       }
     };
@@ -27,17 +26,25 @@ const TodoList = () => {
       const updatedTasks = tasks.filter((_, i) => i !== index);
       setTasks(updatedTasks);
     };
+
+    
+  const handleTaskDone = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].isDone = !updatedTasks[index].isDone;
+    setTasks(updatedTasks);
+  };
   
     return (
       <>
          <Stack direction="row" spacing={2}  justifyContent="center">
-         <TextField type="text"  value={newTask} onChange={handleTaskChange} size="normal"/>
-         <Button  variant="contained" onClick={handleAddTask}  startIcon={<AddIcon />}>Add New Task</Button>
+         <TextField type="text"  value={newTask} onChange={handleTaskChange} size="small"/>
+         <Button  variant="contained" onClick={handleAddTask}  startIcon={<AddIcon />} size="small">Add New Task</Button>
          </Stack>
         <ul>
           {tasks.length > 0 ? tasks.map((task, index) => (
             <li key={index}>
-              <Task description={task} id={index} onDelete={handleTaskDelete} />
+              <Task description={task.description} id={index} onDelete={handleTaskDelete} isDone={task.isDone}
+              onDone={handleTaskDone}/>
             </li>
           )): <div>No Task</div>}
         </ul>
